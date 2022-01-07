@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "DataPreparer": {
+      "commandName": "Project",
+      "commandLineArgs": "C:\\dev\\smartApartmentData\\properties"
+    }
+  }
+}
