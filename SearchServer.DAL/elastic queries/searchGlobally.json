@@ -1,0 +1,10 @@
+{{
+  "size": 200,
+  "query": {{
+    "multi_match": {{
+      "query": "{0}",
+      "fields": [ "mgmt.name", "mgmt.market", "mgmt.state", "property.name", "property.formerName", "property.streetAddress", "property.city", "property.market", "property.state" ],
+      "fuzziness": "AUTO"
+    }}
+  }}
+}}

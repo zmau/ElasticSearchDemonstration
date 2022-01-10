@@ -1,0 +1,26 @@
+{{
+  "query": {{
+    "bool": {{
+      "must": [
+        {{
+          "multi_match": {
+            { 
+              "query": "{0}",
+              "fields": [ "mgmt.name", "mgmt.state", "property.name", "property.formerName", "property.streetAddress", "property.city", "property.state" ],
+              "fuzziness": "AUTO"
+            }
+          }
+        }},
+        {{
+          "multi_match": {
+            {
+              "query": "{1}",
+              "fields": [ "mgmt.market", "property.market" ],
+              "fuzziness": "AUTO"
+            }
+          }
+        }}
+      ]
+    }}
+  }}
+}}

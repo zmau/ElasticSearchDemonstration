@@ -1,3 +1,6 @@
+using System;
+using System.Net.Http.Headers;
+using System.Text;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -5,9 +8,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using SearchServer.Services;
-using TextParsingServer.Servces;
+using SearchServer.Services.TextSearcher;
 
-namespace TextParsingServer.API
+namespace SearchServer.API
 {
     public class Startup
     {
@@ -27,10 +30,17 @@ namespace TextParsingServer.API
             {
                 options.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Title = "Word Counter",
-                    Description = "Rest API.",
+                    Title = "Smart Search",
+                    Description = "Rest API which reads from AWS Elastic Search server.",
                     Version = "v1"
                 });
+            });
+            services.AddHttpClient<ITextSearcher, TextSearcher>(client =>
+            {
+                string userName = ConfigurationFactory.GetConfiguration().GetValue<string>("elastic:userName");
+                string password = ConfigurationFactory.GetConfiguration().GetValue<string>("elastic:password");
+                var encoded = Convert.ToBase64String(Encoding.ASCII.GetBytes(String.Format("{0}:{1}", userName, password)));
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", encoded);
             });
         }
 

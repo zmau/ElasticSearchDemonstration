@@ -1,7 +1,10 @@
-﻿namespace SearchServer.Services.TextSearcher
+﻿using System.Threading.Tasks;
+
+namespace SearchServer.Services.TextSearcher
 {
     public interface ITextSearcher
     {
-        string getApartments(string text);
+        Task<string> getEntitiesGlobally(string text);
+        Task<string> getEntitiesInsideMarket(string term, string market);
     }
 }

@@ -12,7 +12,7 @@ namespace DataPreparer
 
             string inputFileName = args[0]+".ndjson";
             int counter = 1;
-            string indexName = "prop";
+            string indexName = args[0].Substring(args[0].LastIndexOf("\\"), args[0].Length - args[0].LastIndexOf("\\"));
             string lineTemplate = "{{ \"index\" : {{ \"_index\": \"{0}\", \"_id\" : \"{1}\" }} }}";
             string lineToInsert;
             List<string> output = new List<string>();
