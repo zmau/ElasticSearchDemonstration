@@ -21,19 +21,28 @@ namespace SearchServer.API.Controllers
 
         //example : https://localhost:44379/TextSearch/juntcion
         [HttpGet("{term}")]
-        public async Task<string> GetEntitiesGlobally(string term)
+        public async Task<ActionResult> GetEntitiesGloballyAsync(string term)
         {
             _logger.LogTrace($"searching for term {term}");
-            return await _service.getEntitiesGlobally(term); 
+            var result = await _service.getEntitiesGlobally(term);
+            return Ok(result);
         }
 
 
         //example : https://localhost:44379/TextSearch?term=Junction&market=san%20francicso
         [HttpGet]
-        public async Task<string> GetEntities(string term, string market)
+        public async Task<string> GetEntitiesInsideMarketAsync(string term, string market)
         {
-            _logger.LogTrace($"searching for term {term} inside market {market}");
-            return await _service.getEntitiesInsideMarket(term, market);
+            if (string.IsNullOrEmpty(market))
+            {
+                _logger.LogTrace($"searching for term {term} globally");
+                return await _service.getEntitiesGlobally(term);
+            }
+            else
+            {
+                _logger.LogTrace($"searching for term {term} inside market {market}");
+                return await _service.getEntitiesInsideMarket(term, market);
+            }
         }
     }
 }

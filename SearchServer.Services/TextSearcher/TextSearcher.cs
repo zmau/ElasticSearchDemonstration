@@ -26,6 +26,7 @@ namespace SearchServer.Services.TextSearcher
             var result = await httpResponse.Content.ReadAsStringAsync();
             return result;
         }
+
         public async Task<string> getEntitiesInsideMarket(string term, string market)
         {
             string scriptTemplate = ScriptRetriever.getJSON("searchInsideMarket");

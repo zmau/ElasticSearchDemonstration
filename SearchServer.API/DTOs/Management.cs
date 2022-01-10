@@ -1,4 +1,4 @@
-﻿namespace SearchServer.DAL.entities
+﻿namespace SearchServer.API.DALs
 {
     public class Management
     {
